@@ -39,8 +39,8 @@ func makeDOCX(c CV) ([]byte, error) {
 <w:rPr>
 <w:rFonts w:ascii="Arial" w:hAnsi="Arial"/>
 %s
-<w:sz w:val="%d"/>
 <w:color w:val="34435D"/>
+<w:sz w:val="%d"/>
 </w:rPr>
 <w:t xml:space="preserve">%s</w:t>
 </w:r>
@@ -59,22 +59,17 @@ func makeDOCX(c CV) ([]byte, error) {
 		body.WriteString(fmt.Sprintf(
 			`<w:p>
 <w:pPr>
-<w:spacing w:before="220" w:after="100"/>
 <w:pBdr>
-<w:bottom>
-<w:val="single"/>
-<w:sz w:val="4"/>
-<w:space w:val="4"/>
-<w:color w:val="D5DDEC"/>
-</w:bottom>
+<w:bottom w:val="single" w:sz="4" w:space="4" w:color="D5DDEC"/>
 </w:pBdr>
+<w:spacing w:before="220" w:after="100"/>
 </w:pPr>
 <w:r>
 <w:rPr>
 <w:rFonts w:ascii="Arial" w:hAnsi="Arial"/>
 <w:b/>
-<w:sz w:val="20"/>
 <w:color w:val="34435D"/>
+<w:sz w:val="20"/>
 </w:rPr>
 <w:t>%s</w:t>
 </w:r>
@@ -186,7 +181,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
 ` + body.String() + `
 <w:sectPr>
 <w:pgSz w:w="11906" w:h="16838"/>
-<w:pgMar w:top="850" w:right="1000" w:bottom="850" w:left="1000"/>
+<w:pgMar w:top="850" w:right="1000" w:bottom="850" w:left="1000" w:header="708" w:footer="708" w:gutter="0"/>
 </w:sectPr>
 </w:body>
 </w:document>`
