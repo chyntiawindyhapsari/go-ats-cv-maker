@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,69 +5,120 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Forma — CV Builder</title>
 <style>
-:root{font-family:Inter,"Segoe UI",Arial,sans-serif;color:#202b3c;background:#f5f7fb;font-synthesis:none}
+:root{
+  --bg:#f4f6fa;--surface:#fff;--line:#e5e9f0;--line-soft:#eef1f6;
+  --ink:#1b2437;--ink-2:#4a566b;--ink-3:#8793a6;
+  --accent:#4f5fd6;--accent-soft:#eceefd;--accent-ink:#3a49b8;
+  --ok:#1f8a5b;--ok-soft:#e5f6ee;--warn:#b7791f;--warn-soft:#fdf3dc;
+  font-family:Inter,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--bg);font-synthesis:none;-webkit-font-smoothing:antialiased
+}
 *{box-sizing:border-box}
 body{margin:0}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 .app{min-height:100vh}
-.sidebar{position:fixed;inset:0 auto 0 0;width:238px;background:#17243a;color:#fff;padding:27px 18px;display:flex;flex-direction:column;z-index:5}
-.brand{display:flex;align-items:center;gap:11px;padding:0 8px 34px}
-.brand-icon{width:38px;height:38px;border-radius:12px;background:#8b9cfb;color:#14213a;display:grid;place-items:center;font-weight:900;font-size:20px}
-.brand strong{font-size:18px;letter-spacing:-.5px}
-.brand small{display:block;color:#aab7ca;font-size:11px;margin-top:3px}
-.nav-label{font-size:10px;letter-spacing:1.6px;color:#8b9ab0;padding:0 12px;margin-bottom:12px}
-.nav-item{display:flex;gap:12px;align-items:center;color:#c5cede;text-decoration:none;padding:12px;border-radius:9px;font-size:13px;margin-bottom:5px}
-.nav-item.active{background:#2b3b57;color:white}
-.nav-icon{width:21px;text-align:center;font-size:16px}
-.side-note{margin-top:auto;background:#23334d;border-radius:12px;padding:15px;font-size:12px;color:#cbd5e1;line-height:1.7}
-.side-note strong{color:white;display:block;margin-bottom:5px}
-.main{margin-left:238px}
-.topbar{height:76px;background:#fff;border-bottom:1px solid #e8edf4;display:flex;align-items:center;justify-content:space-between;padding:0 34px}
-.crumb{font-size:12px;color:#8b96a8}
-.crumb strong{color:#263349}
-.avatar{width:37px;height:37px;border-radius:50%;background:#e8ecff;color:#4053b5;display:grid;place-items:center;font-weight:800}
-.content{max-width:1450px;margin:auto;padding:30px 32px 50px}
-.page-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:25px}
-.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.6px;color:#6578d4;font-weight:800}
-h1{font-size:27px;letter-spacing:-.9px;margin:7px 0 8px;color:#1d2a40}
-.subtitle{color:#778398;font-size:13px;line-height:1.6;margin:0}
-.pill{background:#e8f7ef;color:#218052;padding:8px 11px;border-radius:30px;font-size:11px;font-weight:700;white-space:nowrap}
-.workspace{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);gap:23px;align-items:start}
-.panel{background:white;border:1px solid #e7ebf2;border-radius:15px;box-shadow:0 8px 28px #1a2a4305;overflow:hidden}
-.panel-head{padding:21px 23px;border-bottom:1px solid #edf0f5;display:flex;align-items:center;justify-content:space-between;gap:12px}
+
+/* Sidebar */
+.sidebar{position:fixed;inset:0 auto 0 0;width:236px;background:var(--surface);border-right:1px solid var(--line);padding:24px 16px;display:flex;flex-direction:column;z-index:5}
+.brand{display:flex;align-items:center;gap:11px;padding:0 8px 28px}
+.brand-icon{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#6a78e8,#4352c9);color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px}
+.brand strong{font-size:17px;letter-spacing:-.4px;display:block;line-height:1.1}
+.brand small{display:block;color:var(--ink-3);font-size:10px;letter-spacing:1.2px;margin-top:3px}
+.nav-label{font-size:10px;letter-spacing:1.5px;color:var(--ink-3);padding:0 12px;margin:0 0 10px;font-weight:700}
+.nav-item{display:flex;gap:11px;align-items:center;width:100%;background:none;border:0;text-align:left;color:var(--ink-2);padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:3px;transition:background .15s,color .15s}
+.nav-item:hover{background:var(--bg)}
+.nav-item.active{background:var(--accent-soft);color:var(--accent-ink)}
+.nav-icon{width:20px;text-align:center;font-size:15px}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:800;background:var(--bg);color:var(--ink-2);padding:2px 7px;border-radius:20px}
+.nav-item.active .nav-badge{background:#fff;color:var(--accent-ink)}
+.side-note{margin-top:auto;background:var(--bg);border:1px solid var(--line-soft);border-radius:12px;padding:14px;font-size:12px;color:var(--ink-2);line-height:1.65}
+.side-note strong{color:var(--ink);display:block;margin-bottom:4px}
+
+/* Topbar */
+.main{margin-left:236px}
+.topbar{position:sticky;top:0;z-index:4;height:64px;background:#ffffffee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 32px}
+.crumb{font-size:12px;color:var(--ink-3)}
+.crumb strong{color:var(--ink)}
+.top-actions{display:flex;align-items:center;gap:10px}
+.meter{display:flex;align-items:center;gap:9px;font-size:11px;color:var(--ink-2);font-weight:700;margin-right:6px}
+.meter-bar{width:90px;height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.meter-bar span{display:block;height:100%;width:0;background:var(--accent);border-radius:6px;transition:width .3s}
+
+.content{max-width:1400px;margin:auto;padding:28px 32px 56px}
+.page-heading{margin-bottom:22px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);font-weight:800}
+h1{font-size:26px;letter-spacing:-.8px;margin:6px 0 6px;color:var(--ink)}
+.subtitle{color:var(--ink-3);font-size:13px;line-height:1.6;margin:0}
+.view{display:none}
+.view.active{display:block}
+
+/* Panels */
+.workspace{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);gap:22px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px #1a2a430a;overflow:hidden}
+.panel-head{padding:18px 22px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;justify-content:space-between;gap:12px}
 .panel-head h2{font-size:15px;margin:0;letter-spacing:-.2px}
-.panel-head p{font-size:11px;color:#8a95a7;margin:5px 0 0}
-.panel-body{padding:23px}
-.step{display:flex;align-items:center;gap:9px;font-size:12px;color:#5c6b81;font-weight:700;margin:0 0 17px}
-.step-number{width:25px;height:25px;border-radius:8px;background:#edf0ff;color:#586bd2;display:grid;place-items:center}
-.photo-row{display:flex;align-items:center;gap:15px;padding:14px;background:#f8f9fc;border:1px solid #edf0f5;border-radius:12px;margin-bottom:23px}
-.photo-preview{width:66px;height:66px;border-radius:12px;object-fit:cover;background:#e5eaf2;display:grid;place-items:center;color:#8a95a7;font-size:23px;flex-shrink:0}
+.panel-head p{font-size:12px;color:var(--ink-3);margin:4px 0 0}
+.panel-body{padding:22px}
+.card{border:1px solid var(--line-soft);border-radius:14px;padding:18px;margin-bottom:16px;background:#fcfdff}
+.card:last-child{margin-bottom:0}
+.step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink);font-weight:750;margin:0 0 16px}
+.step-number{width:26px;height:26px;border-radius:8px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font-size:11px;font-weight:800}
+.photo-row{display:flex;align-items:center;gap:15px;padding:14px;background:#fff;border:1px dashed #d3dae6;border-radius:12px;margin-bottom:18px}
+.photo-preview{width:62px;height:62px;border-radius:12px;object-fit:cover;background:#e5eaf2;flex-shrink:0}
 .photo-info{flex:1;min-width:0}
-.photo-info strong{font-size:12px;display:block;margin-bottom:5px}
-.photo-info p{font-size:11px;color:#8792a4;margin:0;line-height:1.6}
-.upload-label{display:inline-block;margin-top:9px;color:#5265c5;font-size:11px;font-weight:800;cursor:pointer}
+.photo-info strong{font-size:12px;display:block;margin-bottom:4px}
+.photo-info p{font-size:11px;color:var(--ink-3);margin:0;line-height:1.55}
+.upload-label{display:inline-block;margin-top:7px;color:var(--accent-ink);font-size:11px;font-weight:800;cursor:pointer}
 input[type=file]{display:none}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .field{min-width:0}
 .field.full{grid-column:1/-1}
-label{display:block;font-size:11px;font-weight:750;color:#45536a;margin-bottom:7px}
-input:not([type=file]),textarea,select{width:100%;border:1px solid #dfe5ee;border-radius:8px;background:#fff;color:#263349;padding:11px 12px;font-size:12px;outline:none;transition:.18s}
-input:focus,textarea:focus,select:focus{border-color:#8996ed;box-shadow:0 0 0 3px #8b9cfb20}
-textarea{resize:vertical;min-height:96px;line-height:1.65}
-textarea.large{min-height:125px}
-.hint{font-size:10px;color:#929caf;line-height:1.6;margin:6px 0 0}
-.divider{border:0;border-top:1px solid #edf0f5;margin:25px 0}
-.section-title{font-size:13px;font-weight:800;margin:0 0 16px;color:#2c3950}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
-.btn{border:1px solid #dfe5ee;background:white;color:#344159;padding:11px 14px;border-radius:8px;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px}
-.btn-primary{background:#5668ce;border-color:#5668ce;color:white}
-.btn-dark{background:#1d2b43;border-color:#1d2b43;color:white}
+label{display:block;font-size:12px;font-weight:700;color:var(--ink-2);margin-bottom:6px}
+input:not([type=file]),textarea,select{width:100%;border:1px solid #dbe1eb;border-radius:9px;background:#fff;color:var(--ink);padding:10px 12px;font-size:13px;outline:none;transition:border-color .15s,box-shadow .15s}
+input:focus,textarea:focus,select:focus{border-color:#8d99ee;box-shadow:0 0 0 3px #4f5fd620}
+textarea{resize:vertical;min-height:92px;line-height:1.6}
+textarea.large{min-height:120px}
+.hint{font-size:11px;color:var(--ink-3);line-height:1.55;margin:6px 0 0}
+.divider{display:none}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.btn{border:1px solid #d9dfea;background:#fff;color:var(--ink);padding:9px 14px;border-radius:9px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--bg)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-primary:hover{background:#4252c4}
+.btn-dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn-dark:hover{background:#2b3752}
 .btn:disabled{opacity:.55;cursor:wait}
-.preview-panel{position:sticky;top:18px}
-.preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.preview-toolbar select{width:auto;padding:8px;font-size:11px}
-.preview-wrap{padding:20px;background:#edf1f7}
+.status{font-size:12px;line-height:1.6;margin-top:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.status.error{color:#c24141}
+.preview-panel{position:sticky;top:84px}
+.preview-toolbar{display:flex;align-items:center;gap:10px}
+.preview-toolbar select{width:auto;padding:7px 10px;font-size:12px}
+.preview-wrap{padding:20px;background:#e9edf4}
+.preview-foot{font-size:11px;text-align:center;color:var(--ink-3);padding:12px}
+
+/* Skor ATS */
+.score-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:22px;align-items:start}
+.score-card{padding:28px 22px;text-align:center}
+.ring{--p:0;width:150px;height:150px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--line) 0)}
+.ring>div{width:118px;height:118px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:30px;font-weight:800;letter-spacing:-1px}
+.score-card h3{margin:0 0 6px;font-size:15px}
+.score-card p{margin:0;font-size:12px;color:var(--ink-3);line-height:1.6}
+.check{display:flex;gap:12px;align-items:flex-start;padding:14px 22px;border-bottom:1px solid var(--line-soft)}
+.check:last-child{border-bottom:0}
+.check-dot{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:1px}
+.check.ok .check-dot{background:var(--ok-soft);color:var(--ok)}
+.check.no .check-dot{background:var(--warn-soft);color:var(--warn)}
+.check strong{font-size:13px;display:block;margin-bottom:2px}
+.check span{font-size:12px;color:var(--ink-3);line-height:1.5}
+
+/* Tips */
+.tips{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.tip{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.tip-icon{width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font-size:16px;margin-bottom:12px}
+.tip h3{margin:0 0 6px;font-size:14px}
+.tip p{margin:0;font-size:12.5px;line-height:1.65;color:var(--ink-2)}
+
+/* ===== CV (tidak diubah) ===== */
 .paper{width:100%;max-width:560px;min-height:700px;margin:auto;background:#fff;padding:34px 33px;box-shadow:0 6px 24px #192b4510;color:#222e40;overflow-wrap:anywhere}
 .cv-top{display:flex;align-items:flex-start;gap:15px}
 .cv-identity{flex:1;min-width:0}
@@ -80,21 +130,29 @@ textarea.large{min-height:125px}
 .cv-section{margin-top:18px}
 .cv-section h3{font-size:10px;letter-spacing:1px;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid #dce2ec;color:#34435d}
 .cv-section p{font-size:10px;line-height:1.7;white-space:pre-line;margin:0;color:#485468}
-.preview-foot{font-size:10px;text-align:center;color:#8b96a8;padding:12px}
-.status{font-size:11px;line-height:1.6;margin-top:12px;color:#65748a;overflow-wrap:anywhere}
-.status.error{color:#c24141}
 .cv-entry{margin:0 0 12px;break-inside:avoid}
 .cv-entry-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:4px}
 .cv-entry-title{flex:1;min-width:0;font-size:10px;line-height:1.6;font-weight:700;color:#34435d;overflow-wrap:anywhere}
 .cv-entry-date{flex-shrink:0;margin-left:auto;text-align:right;white-space:nowrap;font-size:9px;line-height:1.6;color:#596bd0}
 .cv-entry-description{font-size:10px;line-height:1.7;white-space:pre-line;color:#485468;margin:0}
-@media(max-width:1100px){.workspace{grid-template-columns:1fr}.preview-panel{position:static}.paper{min-height:500px}}
-@media(max-width:720px){.sidebar{position:static;width:auto;height:auto;padding:14px}.brand{padding:0}.sidebar nav,.side-note{display:none}.main{margin:0}.topbar{height:55px;padding:0 18px}.content{padding:23px 14px}.page-heading{flex-direction:column}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.panel-body{padding:17px}.preview-wrap{padding:10px}.paper{padding:23px 19px}.pill{white-space:normal}}
+
+@media(max-width:1100px){.workspace,.score-grid{grid-template-columns:1fr}.preview-panel{position:static}.paper{min-height:500px}}
+@media(max-width:820px){
+  .sidebar{position:static;width:auto;flex-direction:row;align-items:center;padding:10px 14px;gap:6px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
+  .brand{padding:0 6px 0 0}.brand strong,.brand small,.nav-label,.side-note,.nav-badge{display:none}
+  .sidebar nav{display:flex;gap:4px}.nav-item{width:auto;margin:0;white-space:nowrap;padding:8px 11px}
+  .main{margin:0}.topbar{position:static;padding:10px 16px;height:auto;flex-wrap:wrap}
+  .meter-bar{width:60px}
+  .content{padding:20px 14px 40px}
+  .grid{grid-template-columns:1fr}.field.full{grid-column:auto}
+  .panel-body{padding:16px}.card{padding:14px}.preview-wrap{padding:10px}.paper{padding:23px 19px}
+}
 @media(max-width:480px){.cv-entry-heading{gap:8px}.cv-entry-date{font-size:8px}}
 @page{size:A4;margin:12mm}
 @media print{
   body{background:white!important}
-  .sidebar,.topbar,.page-heading,#editor,.preview-panel>.panel-head,.preview-foot{display:none!important}
+  .sidebar,.topbar,.page-heading,#editor,.preview-panel>.panel-head,.preview-foot,#view-check,#view-tips{display:none!important}
+  #view-builder{display:block!important}
   .main{margin:0!important}
   .content{max-width:none!important;padding:0!important;margin:0!important}
   .workspace{display:block!important}
@@ -102,6 +160,7 @@ textarea.large{min-height:125px}
   .paper{width:100%!important;max-width:none!important;min-height:0!important;margin:0!important;box-shadow:none!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
   .cv-entry-heading{break-inside:avoid}
 }
+
 </style>
 </head>
 <body>
@@ -109,25 +168,36 @@ textarea.large{min-height:125px}
 <aside class="sidebar">
   <div class="brand"><div class="brand-icon">F</div><div><strong>forma.</strong><small>RESUME STUDIO</small></div></div>
   <nav>
-    <div class="nav-label">WORKSPACE</div>
-    <a class="nav-item active" href="#editor"><span class="nav-icon">▤</span>CV Builder</a>
-    <a class="nav-item" href="#preview"><span class="nav-icon">◫</span>Live Preview</a>
+    <div class="nav-label">MENU</div>
+    <button class="nav-item active" data-view="builder" type="button"><span class="nav-icon">▤</span>CV Builder</button>
+    <button class="nav-item" data-view="check" type="button"><span class="nav-icon">✓</span>Skor ATS<span class="nav-badge" id="navScore">0%</span></button>
+    <button class="nav-item" data-view="tips" type="button"><span class="nav-icon">✦</span>Tips</button>
   </nav>
-  <div class="side-note"><strong>CV yang lebih kuat.</strong>Gunakan kalimat yang jelas, pencapaian terukur, dan kata kunci yang sesuai dengan lowongan.</div>
+  <div class="side-note"><strong>Satu kolom, teks asli.</strong>Format sederhana lebih mudah dibaca sistem ATS. Cantumkan kata kunci dari lowongan.</div>
 </aside>
 <main class="main">
-  <header class="topbar"><div class="crumb">Workspace&nbsp; / &nbsp;<strong>CV Builder</strong></div><div class="avatar">CV</div></header>
-  <div class="content">
-    <div class="page-heading">
-      <div><div class="eyebrow">Resume workspace</div><h1>Bangun CV profesional.</h1><p class="subtitle">Tulis pengalamanmu, terjemahkan seluruh isi, lalu ekspor CV siap digunakan.</p></div>
-      <span class="pill">● Live preview</span>
+  <header class="topbar">
+    <div class="crumb">Workspace&nbsp; / &nbsp;<strong id="crumbName">CV Builder</strong></div>
+    <div class="top-actions">
+      <div class="meter" title="Kelengkapan CV"><span id="meterText">0%</span><div class="meter-bar"><span id="meterBar"></span></div></div>
+      <button class="btn btn-dark" type="button" id="downloadWord">↓ Word</button>
+      <button class="btn btn-primary" type="button" id="downloadPdf">↓ PDF</button>
     </div>
-    <div class="workspace">
-      <section class="panel" id="editor">
-        <div class="panel-head"><div><h2>Informasi CV</h2><p>Lengkapi informasi yang relevan dengan posisi tujuan.</p></div></div>
-        <div class="panel-body">
-          <div class="step"><span class="step-number">01</span> Profil & identitas</div>
-          <div class="photo-row">
+  </header>
+  <div class="content">
+
+    <div id="view-builder" class="view active">
+      <div class="page-heading">
+        <div class="eyebrow">Resume workspace</div><h1>Bangun CV profesional.</h1>
+        <p class="subtitle">Isi data di kiri, hasilnya langsung tampil di kanan.</p>
+      </div>
+      <div class="workspace">
+        <section class="panel" id="editor">
+          <div class="panel-head"><div><h2>Informasi CV</h2><p>Lengkapi informasi yang relevan dengan posisi tujuan.</p></div></div>
+          <div class="panel-body">
+            <div class="card">
+              <div class="step"><span class="step-number">01</span> Profil &amp; identitas</div>
+              <div class="photo-row">
             <img id="photoPreview" class="photo-preview" alt="Foto profil" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='66' height='66' viewBox='0 0 66 66'%3E%3Crect width='66' height='66' rx='12' fill='%23e5eaf2'/%3E%3Ccircle cx='33' cy='24' r='11' fill='%23aab5c7'/%3E%3Cpath d='M12 62c1-15 9-23 21-23s20 8 21 23' fill='%23aab5c7'/%3E%3C/svg%3E">
             <div class="photo-info"><strong>Foto profil <span style="color:#97a1b1;font-weight:400">(opsional)</span></strong><p>JPG atau PNG. Foto disertakan ke Word dan PDF.</p><label for="photo" class="upload-label">+ Pilih foto</label><input type="file" id="photo" accept="image/jpeg,image/png"></div>
             <button class="btn" type="button" id="removePhoto">Hapus</button>
@@ -141,8 +211,11 @@ textarea.large{min-height:125px}
             <div class="field"><label for="linkedin">LinkedIn</label><input id="linkedin" placeholder="linkedin.com/in/..."></div>
             <div class="field full"><label for="website">Portofolio / website</label><input id="website" placeholder="https://..."></div>
           </div>
-          <hr class="divider">
-          <div class="step"><span class="step-number">02</span> Isi CV</div>
+          
+            </div>
+            <div class="card">
+              <div class="step"><span class="step-number">02</span> Isi CV</div>
+              
           <div class="field full"><label for="summary">Ringkasan profesional</label><textarea id="summary">Lulusan Manajemen Informatika dengan pengalaman pengembangan aplikasi web dan mobile full-stack. Menguasai PHP, Java, React, dan manajemen basis data. Memiliki kemampuan analitis serta pengalaman membangun modul sistem terintegrasi.</textarea></div>
           <div class="field full" style="margin-top:15px"><label for="education">Pendidikan</label><textarea id="education">Politeknik Negeri Malang PSDKU Kediri — D3 Manajemen Informatika
 Agustus 2023 – Agustus 2026
@@ -168,24 +241,57 @@ Mengembangkan aplikasi web menggunakan PHP dan React, modul keuangan dan akuntan
 Surat Pencatatan Ciptaan Program Komputer No. 000935378, 2025</textarea></div>
           <div class="field full" style="margin-top:15px"><label for="languages">Bahasa</label><textarea id="languages">Bahasa Indonesia — Penutur asli
 Bahasa Inggris — TOEIC 695</textarea></div>
-          <hr class="divider">
-          <div class="step"><span class="step-number">03</span> Bahasa & ekspor</div>
-          <div class="field"><label for="language">Bahasa isi saat ini</label><select id="language"><option value="id">Bahasa Indonesia</option><option value="en">English</option></select><p class="hint">Terjemahan mengubah isi CV, bukan data kontak atau nama organisasi.</p></div>
+          
+            </div>
+            <div class="card">
+              <div class="step"><span class="step-number">03</span> Bahasa</div>
+              <div class="field"><label for="language">Bahasa isi saat ini</label><select id="language"><option value="id">Bahasa Indonesia</option><option value="en">English</option></select><p class="hint">Terjemahan mengubah isi CV, bukan data kontak atau nama organisasi.</p></div>
           <div class="actions">
             <button class="btn btn-primary" type="button" id="translate">⇄ Terjemahkan seluruh CV</button>
-            <button class="btn btn-dark" type="button" id="downloadWord">↓ Unduh Word</button>
-            <button class="btn" type="button" id="downloadPdf">↓ Unduh PDF</button>
             <button class="btn" type="button" id="reset">Reset contoh</button>
           </div>
           <div class="status" id="status" role="status"></div>
-        </div>
-      </section>
-      <section class="panel preview-panel" id="preview">
-        <div class="panel-head"><div><h2>Live preview</h2><p>Pratinjau diperbarui saat kamu mengetik.</p></div><div class="preview-toolbar"><select id="template"><option value="classic">Classic</option><option value="compact">Compact</option></select></div></div>
-        <div class="preview-wrap"><article class="paper" id="paper"></article></div>
-        <div class="preview-foot">Clean layout · Selectable text · ATS-friendly structure</div>
-      </section>
+            </div>
+          </div>
+        </section>
+        <section class="panel preview-panel" id="preview">
+          <div class="panel-head"><div><h2>Live preview</h2><p>Pratinjau diperbarui saat kamu mengetik.</p></div><div class="preview-toolbar"><select id="template"><option value="classic">Classic</option><option value="compact">Compact</option></select></div></div>
+          <div class="preview-wrap"><article class="paper" id="paper"></article></div>
+          <div class="preview-foot">Clean layout · Selectable text · ATS-friendly structure</div>
+        </section>
+      </div>
     </div>
+
+    <div id="view-check" class="view">
+      <div class="page-heading">
+        <div class="eyebrow">Pemeriksaan</div><h1>Skor ATS</h1>
+        <p class="subtitle">Pemeriksaan sederhana dari isi CV kamu. Diperbarui otomatis.</p>
+      </div>
+      <div class="score-grid">
+        <div class="panel score-card">
+          <div class="ring" id="ring"><div id="ringText">0%</div></div>
+          <h3 id="scoreTitle">Mulai lengkapi</h3>
+          <p id="scoreDesc">Penuhi poin di samping untuk menaikkan skor.</p>
+        </div>
+        <div class="panel" id="checkList"></div>
+      </div>
+    </div>
+
+    <div id="view-tips" class="view">
+      <div class="page-heading">
+        <div class="eyebrow">Panduan</div><h1>Tips menulis CV</h1>
+        <p class="subtitle">Beberapa kebiasaan kecil yang membuat CV lebih mudah dibaca.</p>
+      </div>
+      <div class="tips">
+        <div class="tip"><div class="tip-icon">①</div><h3>Mulai dengan kata kerja</h3><p>Tulis poin pengalaman dengan kata kerja aktif, misalnya “Membangun”, “Mengintegrasikan”, “Meningkatkan”.</p></div>
+        <div class="tip"><div class="tip-icon">②</div><h3>Pakai angka bila ada</h3><p>Hasil terukur seperti jumlah pengguna, persentase, atau waktu yang dihemat lebih meyakinkan.</p></div>
+        <div class="tip"><div class="tip-icon">③</div><h3>Sesuaikan kata kunci</h3><p>Baca lowongan, lalu masukkan istilah teknologi atau keahlian yang sama ke bagian Keahlian dan Pengalaman.</p></div>
+        <div class="tip"><div class="tip-icon">④</div><h3>Tulis tanggal konsisten</h3><p>Gunakan satu format, misalnya “Juni 2025 – Desember 2025”, agar mudah dikenali sebagai rentang waktu.</p></div>
+        <div class="tip"><div class="tip-icon">⑤</div><h3>Cukup satu sampai dua halaman</h3><p>Prioritaskan pengalaman paling relevan dan hapus hal yang tidak mendukung posisi tujuan.</p></div>
+        <div class="tip"><div class="tip-icon">⑥</div><h3>Periksa sebelum kirim</h3><p>Baca ulang nama, email, dan nomor telepon. Unduh Word atau PDF lalu pastikan teksnya bisa diseleksi.</p></div>
+      </div>
+    </div>
+
   </div>
 </main>
 </div>
@@ -571,6 +677,75 @@ $('reset').onclick = () => {
 };
 
 render();
+
+
+/* ===== Navigasi & skor (tambahan UI, tidak memengaruhi render CV) ===== */
+(function () {
+    const viewNames = {builder: 'CV Builder', check: 'Skor ATS', tips: 'Tips'};
+
+    function showView(name) {
+        if (!viewNames[name]) name = 'builder';
+        document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + name));
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === name));
+        $('crumbName').textContent = viewNames[name];
+        if (name === 'check') computeScore();
+        window.scrollTo(0, 0);
+    }
+    document.querySelectorAll('.nav-item').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
+
+    function words(s) { return (s.match(/\S+/g) || []).length; }
+
+    function checks() {
+        const v = id => $(id).value.trim();
+        const skillCount = v('skills').split(/[,\n;]+/).map(s => s.trim()).filter(Boolean).length;
+        return [
+            {ok: !!v('name'), t: 'Nama lengkap', d: 'Wajib ada di bagian paling atas.'},
+            {ok: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email')), t: 'Email valid', d: 'Gunakan email profesional yang aktif.'},
+            {ok: v('phone').replace(/\D/g, '').length >= 9, t: 'Nomor telepon', d: 'Cantumkan nomor yang bisa dihubungi.'},
+            {ok: !!v('title'), t: 'Posisi yang dituju', d: 'Judul posisi membantu pembaca langsung paham.'},
+            {ok: words(v('summary')) >= 20, t: 'Ringkasan profesional (≥ 20 kata)', d: 'Dua sampai empat kalimat tentang keahlian utamamu.'},
+            {ok: !!v('education'), t: 'Pendidikan terisi', d: 'Institusi, jurusan, dan periode.'},
+            {ok: /(19|20)\d{2}/.test(v('experience')), t: 'Pengalaman dengan tahun', d: 'Sertakan periode kerja agar terbaca sebagai riwayat.'},
+            {ok: skillCount >= 5, t: 'Keahlian (≥ 5 item)', d: 'Pisahkan dengan koma. Saat ini: ' + skillCount + ' item.'},
+            {ok: !!(v('linkedin') || v('website')), t: 'LinkedIn atau portofolio', d: 'Opsional, tetapi menambah kredibilitas.'}
+        ];
+    }
+
+    function computeScore() {
+        const list = checks();
+        const pass = list.filter(c => c.ok).length;
+        const pct = Math.round(pass / list.length * 100);
+
+        $('meterText').textContent = pct + '%';
+        $('meterBar').style.width = pct + '%';
+        $('navScore').textContent = pct + '%';
+        $('ring').style.setProperty('--p', pct);
+        $('ringText').textContent = pct + '%';
+        $('scoreTitle').textContent = pct >= 90 ? 'Sangat baik' : pct >= 65 ? 'Hampir siap' : 'Perlu dilengkapi';
+        $('scoreDesc').textContent = pass + ' dari ' + list.length + ' poin terpenuhi.';
+
+        const box = $('checkList');
+        box.replaceChildren();
+        list.forEach(c => {
+            const row = document.createElement('div');
+            row.className = 'check ' + (c.ok ? 'ok' : 'no');
+            const dot = document.createElement('div');
+            dot.className = 'check-dot';
+            dot.textContent = c.ok ? '✓' : '!';
+            const txt = document.createElement('div');
+            const st = document.createElement('strong');
+            st.textContent = c.t;
+            const sp = document.createElement('span');
+            sp.textContent = c.d;
+            txt.append(st, sp);
+            row.append(dot, txt);
+            box.append(row);
+        });
+    }
+
+    ids.forEach(id => $(id).addEventListener('input', computeScore));
+    computeScore();
+})();
 </script>
 </body>
 </html>
